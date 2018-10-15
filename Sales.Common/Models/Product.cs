@@ -1,5 +1,6 @@
 ﻿namespace Sales.Common.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -29,8 +30,21 @@
         [DataType(DataType.Date)]
         public DateTime PublishOn { get; set; }
 
+        [Required]
+        [StringLength(128)]
+        public string UserId { get; set; }
+
+
         [NotMapped]
         public byte[] ImageArray { get; set; }
+
+        //clave foranea tcategoryId:
+        public int CategoryId { get; set; }
+
+        //relacion con la clase category:
+        //lado varios
+        [JsonIgnore]//es para que este campo no sea tenido encuenta en la desarializacion
+        public virtual Category Category { get; set; }
 
         public string ImageFullPath
         {
