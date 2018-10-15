@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:Sales.Helpers"
+             x:Class="Sales.Views.ProductsPage"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="{i18n:Translate Products}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Icon="ic_action_add_circle" 
+            Text="{i18n:Translate AddProductsToolBar}"
+            Command="{Binding AddProductCommand}">            
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        
+            <StackLayout BindingContext="{Binding Products}" Padding="5">
+
+            <SearchBar
+                HeightRequest="30"
+                Placeholder="{i18n:Translate Search}"
+                SearchCommand="{Binding SearchCommand}"
+                Text="{Binding Filter}">                
+            </SearchBar>
+                
+                <ListView
+                    IsRefreshing="{Binding IsRefreshing}"
+                    IsPullToRefreshEnabled="True"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    HasUnevenRows="True"
+                    ItemsSource="{Binding ListProducts}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem 
+                                    Text="{i18n:Translate Edit}" 
+                                    Command="{Binding EditProductCommand}">                                    
+                                </MenuItem>
+                                <MenuItem 
+                                    
+                                    Text="{i18n:Translate Delete}" 
+                                    Command="{Binding DeleteProductCommand}"
+                                    IsDestructive="True">                                    
+                                </MenuItem>
+                            </ViewCell.ContextActions>
+                                <Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding  EditProductCommand}"></TapGestureRecognizer>
+                                </Grid.GestureRecognizers>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image
+                                       WidthRequest="80"   
+                                        HeightRequest="80"
+                                        Grid.Column="0"
+                                        Source="{Binding ImageFullPath}">                                        
+                                    </Image>
+                                    <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Label 
+                                        Text="{Binding Description}"
+                                        FontAttributes="Bold">
+                                        </Label>
+                                        <Label
+                                            Text="{Binding Remarks}">                                            
+                                        </Label>
+                                    </StackLayout>
+                                    <Label
+                                        Grid.Column="2"
+                                        Text="{Binding Price}"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Center">                                        
+                                    </Label>
+                                <Image
+                                    Aspect="Fill"
+                                    BackgroundColor="AliceBlue"
+                                    Grid.Column="3"
+                                    Source="ic_action_chevron_right"
+                                    VerticalOptions="Center"></Image>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>

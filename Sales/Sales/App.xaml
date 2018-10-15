@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:infra="clr-namespace:Sales.Infrastructure"
+             x:Class="Sales.App">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <!--Locator-->
+            <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
+
+            <!-- Colors -->
+            <Color x:Key="MainColor">#1CA5B8</Color>
+            <Color x:Key="FontColor">#012C40</Color>
+            <Color x:Key="AccentColor1">#FF5521</Color>
+            <Color x:Key="AccentColor2">#4DB84B</Color>
+            <Color x:Key="BackgroundColor">#DAEBF2</Color>
+
+
+            <!-- Url Api -->
+          <!--<x:String x:Key="UrlAPI">https://salesapiservices.azurewebsites.net</x:String>-->
+            <x:String x:Key="UrlAPI">http://192.168.0.11:54268</x:String>
+            <x:String x:Key="UrlPrefix">/api</x:String>
+            <x:String x:Key="UrlProductsController">/Products</x:String>
+            <x:String x:Key="UrlUsersController">/Users</x:String>
+            <x:String x:Key="UrlUsersControllerGetUser">/GetUser</x:String>
+
+            <!-- Facebook -->
+            <x:String x:Key="FacebookAppID">334455733791126</x:String>
+            <x:String x:Key="FacebookAuthURL">https://www.facebook.com/dialog/oauth/</x:String>
+            <x:String x:Key="FacebookRedirectURL">https://www.facebook.com/connect/login_success.html</x:String>
+            <x:String x:Key="FacebookScope">email</x:String>
+            <x:String x:Key="LoginFacebook">/LoginFacebook</x:String>
+
+            <!-- Instagram -->
+            <x:String x:Key="InstagramAppID">95e62f4c54f544018e5c982beaeffb62</x:String>
+            <x:String x:Key="InstagramAuthURL">https://api.instagram.com/oauth/authorize/</x:String>
+            <x:String x:Key="InstagramRedirectURL">https://www.instagram.com/</x:String>
+            <x:String x:Key="InstagramScope">basic</x:String>
+            <x:String x:Key="InstagramProfileInfoURL">https://api.instagram.com/v1/users/self/?access_token</x:String>
+
+            <!-- Twitter -->
+            <x:String x:Key="TwitterConsumerKey">YQTr4UuxgOs9IFkry9LorHN8k</x:String>
+            <x:String x:Key="TwitterConsumerSecret">Zz0V2rikyOB0ZcHWegpwU7PbndiOpPmNS2NeyUryrmlEsL2eEt</x:String>
+            <x:String x:Key="TwitterRequestTokenURL">https://api.twitter.com/oauth/request_token</x:String>
+            <x:String x:Key="TwitterAuthorizeURL">https://api.twitter.com/oauth/authorize</x:String>
+            <x:String x:Key="TwitterAccessTokenURL">https://api.twitter.com/oauth/access_token</x:String>
+            <x:String x:Key="Url">http://www.zulu-software.com</x:String>
+            <x:String x:Key="TwitterProfileInfoURL">https://api.twitter.com/1.1/account/verify_credentials.json</x:String>
+
+
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

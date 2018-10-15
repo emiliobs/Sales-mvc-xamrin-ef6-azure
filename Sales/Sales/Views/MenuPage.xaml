@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sales.Views.MenuPage"
+             xmlns:i18n="clr-namespace:Sales.Helpers"
+             xmlns:ImageCircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="{i18n:Translate Menu}"
+             BackgroundColor="Gray">
+    <ContentPage.Content>
+        <StackLayout
+        	Padding="5">
+            <ImageCircle:CircleImage Source="{Binding UserImageFullPath}"
+                                     Aspect="AspectFill"
+                                     WidthRequest="200"
+                                     HeightRequest="200">                
+            </ImageCircle:CircleImage>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center" TextColor="Wheat">Hello,</Label>
+                <Label FontAttributes="Bold"
+                   FontSize="Large"
+                   HorizontalOptions="Center"
+                   Text=" {Binding UserFullName}"
+                   TextColor="Wheat">
+                </Label>
+            </StackLayout>
+            
+            <ListView
+                SeparatorVisibility="None"
+            	ItemsSource="{Binding Menu}"
+            	HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding GotoCommand}"/>
+                                </Grid.GestureRecognizers>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                	Grid.Column="0"
+                                	Source="{Binding Icon}"
+                                	WidthRequest="50"
+                                	HeightRequest="50">
+                                </Image>
+                                <Label
+                                	Grid.Column="1"
+                                	VerticalOptions="Center"
+                                	TextColor="White"
+                                	Text="{Binding Title}">
+                                </Label>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>
