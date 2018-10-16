@@ -26,6 +26,7 @@
             </StackLayout>
             
             <ListView
+                BackgroundColor="Transparent"
                 SeparatorVisibility="None"
             	ItemsSource="{Binding Menu}"
             	HasUnevenRows="True">

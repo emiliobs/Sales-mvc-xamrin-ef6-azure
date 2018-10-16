@@ -31,10 +31,11 @@
                 {
                     return "noproduct";
                 }
-
+                                   
                 //return $"https://salesbackend.azurewebsites.net{this.ImagePath.Substring(1)}";
                 //return $"http://192.168.0.11:54268/{ImagePath.Substring(1)}";
-                return $"http://localhost:57100/{ImagePath.Substring(1)}";
+                return $"http://192.168.0.11:57100{ImagePath.Substring(1)}";
+              
             }
         }
 
