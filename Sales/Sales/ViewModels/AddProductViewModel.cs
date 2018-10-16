@@ -40,8 +40,12 @@
             get => categories;
             set
             {
+                if (categories != value)
+                {
                     categories = value;
                     OnPropertyChanged();
+                }
+                  
                                    
                 
             }
@@ -56,7 +60,7 @@
             get => category;
             set
             {
-                if (category != null)
+                if (category != value)
                 {
                     category = value;
                     OnPropertyChanged();
@@ -146,6 +150,8 @@
             if (answer)
             {
                 this.RefreshList();
+                                       
+
             }
 
             this.IsRunning = false;
@@ -244,6 +250,17 @@
                 return;
             }
 
+            //aqui pregunto y obligo a seleccionar una categoria en el picker:
+            if (this.Category == null)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.CategoryError,
+                    Languages.Accept);
+                return;
+            }
+
+
             IsRunning = true;
             IsEnabled = false;
 
@@ -269,13 +286,24 @@
             }
 
             //aqui armo el objeto con las variables desde el formulario add new product:
+            //var product = new Product
+            //{
+            //   Description = Description,
+            //   Price       = price,
+            //   Remarks     = Remarks,
+            //   ImageArray = imageArray,
+            //};
             var product = new Product
             {
-               Description = Description,
-               Price       = price,
-               Remarks     = Remarks,
-               ImageArray = imageArray,
+                Description = this.Description,
+                Price = price,
+                Remarks = this.Remarks,
+                ImageArray = imageArray,
+                CategoryId = this.Category.CategoryId,
+                //aqui logeo el producto, con userId
+                UserId = MainViewModel.GetInstance().UserASP.Id,
             };
+
 
             var url = Application.Current.Resources["UrlAPI"].ToString();
             var urlPrefix = Application.Current.Resources["UrlPrefix"].ToString();

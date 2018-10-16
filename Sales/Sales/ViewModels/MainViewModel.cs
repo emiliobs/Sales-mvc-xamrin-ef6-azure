@@ -68,7 +68,9 @@
                         //si no es de facebook
                         if (claim.ClaimValue.StartsWith("~"))
                         {
-                            return $"https://salesapiservices.azurewebsites.net{claim.ClaimValue.Substring(1)}";
+                        
+                            return $"http://192.168.0.11:54268{claim.ClaimValue.Substring(1)}";
+                            //return $"https://salesapiservices.azurewebsites.net{claim.ClaimValue.Substring(1)}";
                         }
 
                         return claim.ClaimValue;
