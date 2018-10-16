@@ -8,8 +8,10 @@
     using Sales.Services;
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using Xamarin.Forms;
 
@@ -27,10 +29,40 @@
         private bool isRunning;
         private bool isEnabled;
         private ImageSource imageSource;
+        private ObservableCollection<Category> categories;
+        private Category category;
 
         #endregion
 
         #region Properties
+        public ObservableCollection<Category> Categories
+        {
+            get => categories;
+            set
+            {
+                    categories = value;
+                    OnPropertyChanged();
+                                   
+                
+            }
+        }
+
+        //esta la utilizo para cargar la lista api y tenerla en memoria
+        public List<Category> MyCategories { get; set; }
+
+        //esta es la que binda si el usurio selecciona una categora:
+        public Category Category
+        {
+            get => category;
+            set
+            {
+                if (category != null)
+                {
+                    category = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public string Description { get; set; }
         public string Price { get; set; }
         public string Remarks { get; set; }
@@ -79,8 +111,13 @@
 
             IsEnabled = true;
             ImageSource = "noproduct";
-          
+
+            
+
+            this.LoadCategories();
+
         }
+
         #endregion
 
         #region Commands
@@ -90,7 +127,50 @@
 
         #endregion
 
-        #region Methods
+        #region Methods                                 
+        private async void LoadCategories()
+        {
+            this.IsRunning = true;
+            this.IsEnabled = false;
+
+            var connection = await this.ApiServices.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, connection.Message, Languages.Accept);
+                return;
+            }
+
+            var answer = await this.LoadCategoriesFromAPI();
+            if (answer)
+            {
+                this.RefreshList();
+            }
+
+            this.IsRunning = false;
+            this.IsEnabled = true;
+        }
+
+        private void RefreshList()
+        {
+           this.Categories = new ObservableCollection<Category>(MyCategories.OrderBy(c => c.Description));
+        }
+
+        private async Task<bool> LoadCategoriesFromAPI()
+        {
+            var url = Application.Current.Resources["UrlAPI"].ToString();
+            var prefix = Application.Current.Resources["UrlPrefix"].ToString();
+            var controller = Application.Current.Resources["UrlCategoriesController"].ToString();
+            var response = await this.ApiServices.GetList<Category>(url, prefix, controller, Settings.TokenType, Settings.AccessToken);
+            if (!response.IsSuccess)
+            {
+                return false;
+            }
+
+            this.MyCategories = (List<Category>)response.Result;
+            return true;
+        }
 
         private async void ChangeImage()
         {
