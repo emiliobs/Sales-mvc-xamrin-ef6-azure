@@ -143,6 +143,48 @@
             }
         }
 
+        public async Task<Response> GetList<T>(string urlBase, string prefix, string controller,int id, string tokenType, string accessToken)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(urlBase);
+                //esta linea es para consumir el servicio de forma segura:
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
+                var url = $"{prefix}{controller}/{id}";
+                var response = await client.GetAsync(url);
+                var answer = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+
+                    return new Response()
+                    {
+                        IsSuccess = false,
+                        Message = answer,
+                    };
+                }
+
+                var list = JsonConvert.DeserializeObject<List<T>>(answer);
+
+                return new Response()
+                {
+                    IsSuccess = true,
+                    Message = "Ok",
+                    Result = list,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response()
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+
+                };
+
+            }
+        }
+
         public async Task<Response> Post<T>(string urlBase, string prefix, string controller, T model)
         {
             try

@@ -31,13 +31,14 @@ namespace SalesApi.Controllers
         [ResponseType(typeof(Product))]
         public async Task<IHttpActionResult> GetProduct(int id)
         {
-            Product product = await db.Products.FindAsync(id);
-            if (product == null)
+            //moifico para que me devuelva los productos de una categoria:
+            var products = await db.Products.Where(p => p.CategoryId.Equals(id)).ToListAsync(); 
+            if (products == null)
             {
                 return NotFound();
             }
 
-            return Ok(product);
+            return Ok(products);
         }
 
         // PUT: api/Products/5
