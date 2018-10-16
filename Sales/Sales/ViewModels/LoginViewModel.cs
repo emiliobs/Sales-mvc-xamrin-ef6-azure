@@ -165,8 +165,7 @@
                 return;
             }
 
-            await Application.Current.MainPage.Navigation.PushAsync(
-                new LoginFacebookPage());
+            await Application.Current.MainPage.Navigation.PushAsync( new LoginFacebookPage());
 
         }
 
@@ -251,7 +250,8 @@
             }
 
             //Aqui instacion la page con la pagina sin navegacion de back productpage();
-            MainViewModel.GetInstance().Products = new ProductsViewModel();
+            //MainViewModel.GetInstance().Products = new ProductsViewModel();
+            MainViewModel.GetInstance().Categories = new CategoriesViewModel();
             // Application.Current.MainPage = new ProductsPage();
             Application.Current.MainPage = new MasterPage();
             //App.Current.MainPage = new MasterPage();

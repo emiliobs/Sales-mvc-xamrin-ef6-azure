@@ -33,7 +33,8 @@ namespace Sales
                     mainViewModel.UserASP = JsonConvert.DeserializeObject<MyUserASP>(Settings.UserASP);
                 }
 
-                mainViewModel.Products = new ProductsViewModel();
+                //mainViewModel.Products = new ProductsViewModel();
+                mainViewModel.Categories = new CategoriesViewModel();
                 this.MainPage = new MasterPage();
             }
             else
@@ -113,7 +114,8 @@ namespace Sales
                 Settings.UserASP = JsonConvert.SerializeObject(userASP);
             }
 
-            MainViewModel.GetInstance().Products = new ProductsViewModel();
+            //MainViewModel.GetInstance().Products = new ProductsViewModel();
+            MainViewModel.GetInstance().Categories = new CategoriesViewModel();
             Application.Current.MainPage = new MasterPage();
         }
 
