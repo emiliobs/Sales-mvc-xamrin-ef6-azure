@@ -319,6 +319,15 @@
                 return;
             }
 
+            if (this.Category == null)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.CategoryError,
+                    Languages.Accept);
+                return;
+            }
+
             IsRunning = true;
             IsEnabled = false;
 
@@ -343,6 +352,9 @@
                 imageArray = FileHelper.ReadFully(file.GetStream());
                 Product.ImageArray = imageArray;
             }
+
+            //aqui cambio la categría como edit:
+            this.Product.CategoryId = this.Category.CategoryId;
 
             var url = Application.Current.Resources["UrlAPI"].ToString();
             var urlPrefix = Application.Current.Resources["UrlPrefix"].ToString();
