@@ -15,7 +15,8 @@ namespace Sales
 	public partial class App : Application
 	{
         #region Properties
-        public static NavigationPage Navigator { get; internal set; } 
+        public static NavigationPage Navigator { get; internal set; }
+        public static MasterPage Master { get; internal set; }
         #endregion
 
         #region Contructs
@@ -87,6 +88,8 @@ namespace Sales
                 return new Action(() => Current.MainPage = new NavigationPage(new LoginView()));
             }
         }
+
+       
 
         public static async Task NavigateToProfile(TokenResponse token)
         {

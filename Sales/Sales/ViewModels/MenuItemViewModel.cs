@@ -24,7 +24,7 @@
         #endregion
 
         #region Methods
-        private  void Goto()
+        private async  void Goto()
         {
             if (PageName == "LoginView")
             {
@@ -35,6 +35,12 @@
 
                 MainViewModel.GetInstance().Login = new LoginViewModel();
                 Application.Current.MainPage = new  NavigationPage( new LoginView());
+            }
+            else if (this.PageName == "AboutPage")
+            {
+                //aqui oculto la masterpage cuando me muestra el detalles de otra página
+                App.Master.IsPresented = false;
+                await App.Navigator.PushAsync(new MapPage());
             }
         }
         #endregion
