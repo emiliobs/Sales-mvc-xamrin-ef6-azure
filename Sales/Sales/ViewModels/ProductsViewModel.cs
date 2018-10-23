@@ -270,6 +270,8 @@
                     ProductId = p.ProductId,
                     PublishOn = p.PublishOn,
                     Remarks = p.Remarks,
+                    CategoryId = p.CategoryId,
+                    UserId = p.UserId,
 
 
                 });
@@ -292,6 +294,8 @@
                     ProductId = p.ProductId,
                     PublishOn = p.PublishOn,
                     Remarks = p.Remarks,
+                    CategoryId = p.CategoryId,
+                    UserId = p.UserId,
 
 
                 }).Where(p=>p.Description.ToLower().Trim().Contains(Filter.ToLower().Trim())).ToList();
