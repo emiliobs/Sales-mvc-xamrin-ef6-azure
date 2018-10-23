@@ -25,7 +25,7 @@
             CrossCurrentActivity.Current.Init(this, bundle);
             ImageCircleRenderer.Init();
             global::Xamarin.Forms.Forms.Init(this, bundle);
-           
+            global::Xamarin.FormsMaps.Init(this, bundle);
             LoadApplication(new App());
         }
 
@@ -34,7 +34,8 @@
         {
 
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
+            Plugin.Permissions.PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
     }
