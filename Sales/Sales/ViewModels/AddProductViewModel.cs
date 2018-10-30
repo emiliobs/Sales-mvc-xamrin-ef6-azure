@@ -1,6 +1,8 @@
 ﻿namespace Sales.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
+    using Plugin.Geolocator;
+    using Plugin.Geolocator.Abstractions;
     using Plugin.Media;
     using Plugin.Media.Abstractions;
     using Sales.Common.Models;
@@ -293,6 +295,9 @@
             //   Remarks     = Remarks,
             //   ImageArray = imageArray,
             //};
+
+            var location = await GetLocation();
+
             var product = new Product
             {
                 Description = this.Description,
@@ -302,6 +307,11 @@
                 CategoryId = this.Category.CategoryId,
                 //aqui logeo el producto, con userId
                 UserId = MainViewModel.GetInstance().UserASP.Id,
+                //localizacion:
+                Latitude = location == null ? 0 : location.Latitude,
+                Longitude = location == null ? 0 : location.Longitude,
+
+
             };
 
 
@@ -338,6 +348,15 @@
             //await Application.Current.MainPage.Navigation.PopAsync();
             await App.Navigator.PopAsync();
         }
+
+        private async Task<Position> GetLocation()
+        {
+            var locator = CrossGeolocator.Current;
+            locator.DesiredAccuracy = 50;
+            var location = await locator.GetPositionAsync();
+            return location;
+        }
+
 
         #endregion
     }
